@@ -1,0 +1,4 @@
+{"$schema":"http://json-schema.org/draft-07/schema#","title":"Chunk","type":"object",
+ "required":["doc_id","langue","page_ou_section","version","texte"],
+ "properties":{"doc_id":{"type":"string"},"langue":{"enum":["ar","fr","en"]},
+ "page_ou_section":{"type":["string","integer"]},"version":{"type":"string"},"texte":{"type":"string"}}}

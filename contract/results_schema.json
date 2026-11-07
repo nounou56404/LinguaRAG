@@ -1,0 +1,11 @@
+{"$schema":"http://json-schema.org/draft-07/schema#","title":"Results","type":"object",
+ "required":["personne","langue_questions","modele_base","variante","commit","date","graine","n_questions","base","finetune","echecs"],
+ "definitions":{"metrics":{"type":"object","required":["recall@5","recall@10","mrr"],
+   "properties":{"recall@5":{"type":"number"},"recall@10":{"type":"number"},"mrr":{"type":"number"}}},
+  "bloc":{"type":"object","required":["total","meme_langue","translingue"],
+   "properties":{"total":{"$ref":"#/definitions/metrics"},"meme_langue":{"$ref":"#/definitions/metrics"},"translingue":{"$ref":"#/definitions/metrics"}}}},
+ "properties":{"personne":{"type":"string"},"langue_questions":{"enum":["ar","fr","en"]},
+  "modele_base":{"type":"string"},"variante":{"type":"string"},"commit":{"type":"string"},"date":{"type":"string"},
+  "graine":{"type":"integer"},"n_questions":{"type":"integer"},
+  "base":{"$ref":"#/definitions/bloc"},"finetune":{"$ref":"#/definitions/bloc"},
+  "echecs":{"type":"array","items":{"type":"string"}}}}

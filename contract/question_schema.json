@@ -1,0 +1,5 @@
+{"$schema":"http://json-schema.org/draft-07/schema#","title":"Question","type":"object",
+ "required":["question","langue_question","doc_id_attendu","page_ou_section_attendue","type"],
+ "properties":{"question":{"type":"string"},"langue_question":{"enum":["ar","fr","en"]},
+ "doc_id_attendu":{"type":"string"},"page_ou_section_attendue":{"type":["string","integer"]},
+ "type":{"enum":["meme_langue","translingue"]}}}

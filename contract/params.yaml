@@ -1,0 +1,5 @@
+# A COMPLETER AU JOUR 1, ensemble, puis geler
+modele_base: "A_DEFINIR (embeddings multilingue commun)"
+graine: 42
+k_values: [5, 10]
+decoupage_base: {taille: 500, chevauchement: 50}

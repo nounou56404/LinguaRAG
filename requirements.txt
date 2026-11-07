@@ -1,0 +1,7 @@
+# versions a epingler au jour 1
+pyyaml
+jsonschema
+pytest
+ruff
+nbstripout
+pre-commit

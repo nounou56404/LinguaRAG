@@ -1,0 +1,4 @@
+{"tools":[
+ {"name":"ingest_document","params":{"path":"string","doc_id":"string"}},
+ {"name":"search_by_language","params":{"query":"string","langue":"string","k":"integer"}},
+ {"name":"answer_with_citations","params":{"query":"string","k":"integer"}}]}

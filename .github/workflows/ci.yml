@@ -1,0 +1,20 @@
+name: ci
+on: [pull_request]
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        p: [ar, fr, en]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install -r requirements.txt
+      - name: Refuser .env, cles et notebooks avec sorties
+        run: |
+          ! git ls-files | grep -E '(^|/)\.env$'
+          ! git grep -nE '(sk-[A-Za-z0-9]{20,}|AKIA[0-9A-Z]{16})' -- . ':!*.md'
+          ! git ls-files '*.ipynb' | xargs -r grep -l '"outputs": \[[^]]'
+      - run: make check P=${{ matrix.p }}

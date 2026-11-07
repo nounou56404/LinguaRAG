@@ -1,0 +1,6 @@
+# Remplacer par les vrais pseudos GitHub
+/ar/ @PERSONNE_A
+/fr/ @PERSONNE_B
+/en/ @PERSONNE_C
+/contract/ @PERSONNE_A @PERSONNE_B @PERSONNE_C
+/integration/ @PERSONNE_A @PERSONNE_B @PERSONNE_C
