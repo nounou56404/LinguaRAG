@@ -1,0 +1,891 @@
+{
+  "phase": "comparaison_hybride_base_v1_v2",
+  "nombre_questions": 20,
+  "nombre_candidats": 30,
+  "methodes": {
+    "hybride": {
+      "modele": "hybride",
+      "nombre_questions": 20,
+      "global": {
+        "recall_at_5": 0.5,
+        "recall_at_10": 0.7,
+        "mrr": 0.31297619047619046
+      },
+      "meme_langue": {
+        "recall_at_5": 0.75,
+        "recall_at_10": 1.0,
+        "mrr": 0.46805555555555567
+      },
+      "translingue": {
+        "recall_at_5": 0.125,
+        "recall_at_10": 0.25,
+        "mrr": 0.08035714285714285
+      },
+      "details": [
+        {
+          "question": "Quels sont les bienfaits du sport ?",
+          "type": "translingue",
+          "doc_id_attendu": "physical-activity_en",
+          "page_attendue": "1",
+          "rang": null,
+          "recall_at_5": 0,
+          "recall_at_10": 0,
+          "rr": 0
+        },
+        {
+          "question": "Quels sports peut-on pratiquer pour rester actif ?",
+          "type": "translingue",
+          "doc_id_attendu": "physical-activity_en",
+          "page_attendue": "2",
+          "rang": 2,
+          "recall_at_5": 1,
+          "recall_at_10": 1,
+          "rr": 0.5
+        },
+        {
+          "question": "Qui peut pratiquer une activité physique ?",
+          "type": "translingue",
+          "doc_id_attendu": "physical-activity_en",
+          "page_attendue": "3",
+          "rang": null,
+          "recall_at_5": 0,
+          "recall_at_10": 0,
+          "rr": 0
+        },
+        {
+          "question": "Pourquoi faut-il manger sainement ?",
+          "type": "translingue",
+          "doc_id_attendu": "healthy-diet_en",
+          "page_attendue": "1",
+          "rang": 7,
+          "recall_at_5": 0,
+          "recall_at_10": 1,
+          "rr": 0.14285714285714285
+        },
+        {
+          "question": "Pourquoi faut-il manger des fruits et des légumes ?",
+          "type": "translingue",
+          "doc_id_attendu": "healthy-diet_en",
+          "page_attendue": "2",
+          "rang": null,
+          "recall_at_5": 0,
+          "recall_at_10": 0,
+          "rr": 0
+        },
+        {
+          "question": "Pourquoi l'alcool est-il dangereux pendant la grossesse ?",
+          "type": "translingue",
+          "doc_id_attendu": "alcohol_ar",
+          "page_attendue": "3",
+          "rang": null,
+          "recall_at_5": 0,
+          "recall_at_10": 0,
+          "rr": 0
+        },
+        {
+          "question": "Combien de personnes avaient des problèmes liés à l'alcool en 2019 ?",
+          "type": "translingue",
+          "doc_id_attendu": "alcohol_ar",
+          "page_attendue": "2",
+          "rang": null,
+          "recall_at_5": 0,
+          "recall_at_10": 0,
+          "rr": 0
+        },
+        {
+          "question": "Pourquoi faut-il réduire le sel dans notre alimentation ?",
+          "type": "translingue",
+          "doc_id_attendu": "salt-reduction_ar",
+          "page_attendue": "2",
+          "rang": null,
+          "recall_at_5": 0,
+          "recall_at_10": 0,
+          "rr": 0
+        },
+        {
+          "question": "Quels sont les symptômes du diabète ?",
+          "type": "meme_langue",
+          "doc_id_attendu": "diabetes_fr",
+          "page_attendue": "2",
+          "rang": 3,
+          "recall_at_5": 1,
+          "recall_at_10": 1,
+          "rr": 0.3333333333333333
+        },
+        {
+          "question": "Qu'est-ce que le diabète ?",
+          "type": "meme_langue",
+          "doc_id_attendu": "diabetes_fr",
+          "page_attendue": "1",
+          "rang": 6,
+          "recall_at_5": 0,
+          "recall_at_10": 1,
+          "rr": 0.16666666666666666
+        },
+        {
+          "question": "Qu'est-ce que l'hypertension ?",
+          "type": "meme_langue",
+          "doc_id_attendu": "hypertension_fr",
+          "page_attendue": "1",
+          "rang": 1,
+          "recall_at_5": 1,
+          "recall_at_10": 1,
+          "rr": 1.0
+        },
+        {
+          "question": "Quels sont les risques de l'hypertension ?",
+          "type": "meme_langue",
+          "doc_id_attendu": "hypertension_fr",
+          "page_attendue": "5",
+          "rang": 6,
+          "recall_at_5": 0,
+          "recall_at_10": 1,
+          "rr": 0.16666666666666666
+        },
+        {
+          "question": "Qu'est-ce que l'obésité ?",
+          "type": "meme_langue",
+          "doc_id_attendu": "obesity-and-overweight_fr",
+          "page_attendue": "1",
+          "rang": 1,
+          "recall_at_5": 1,
+          "recall_at_10": 1,
+          "rr": 1.0
+        },
+        {
+          "question": "Pourquoi l'obésité est-elle dangereuse pour la santé ?",
+          "type": "meme_langue",
+          "doc_id_attendu": "obesity-and-overweight_fr",
+          "page_attendue": "4",
+          "rang": 5,
+          "recall_at_5": 1,
+          "recall_at_10": 1,
+          "rr": 0.2
+        },
+        {
+          "question": "Qu'est-ce que la tuberculose ?",
+          "type": "meme_langue",
+          "doc_id_attendu": "tuberculosis_fr",
+          "page_attendue": "1",
+          "rang": 4,
+          "recall_at_5": 1,
+          "recall_at_10": 1,
+          "rr": 0.25
+        },
+        {
+          "question": "Quels sont les symptômes de la tuberculose ?",
+          "type": "meme_langue",
+          "doc_id_attendu": "tuberculosis_fr",
+          "page_attendue": "3",
+          "rang": 3,
+          "recall_at_5": 1,
+          "recall_at_10": 1,
+          "rr": 0.3333333333333333
+        },
+        {
+          "question": "Pourquoi le tabac est-il dangereux ?",
+          "type": "meme_langue",
+          "doc_id_attendu": "tobacco_fr",
+          "page_attendue": "1",
+          "rang": 2,
+          "recall_at_5": 1,
+          "recall_at_10": 1,
+          "rr": 0.5
+        },
+        {
+          "question": "Quels sont les dangers du tabagisme passif ?",
+          "type": "meme_langue",
+          "doc_id_attendu": "tobacco_fr",
+          "page_attendue": "1",
+          "rang": 2,
+          "recall_at_5": 1,
+          "recall_at_10": 1,
+          "rr": 0.5
+        },
+        {
+          "question": "Quelles sont les maladies non transmissibles ?",
+          "type": "meme_langue",
+          "doc_id_attendu": "noncommunicable-diseases_fr",
+          "page_attendue": "1",
+          "rang": 1,
+          "recall_at_5": 1,
+          "recall_at_10": 1,
+          "rr": 1.0
+        },
+        {
+          "question": "Comment prévenir les maladies non transmissibles ?",
+          "type": "meme_langue",
+          "doc_id_attendu": "noncommunicable-diseases_fr",
+          "page_attendue": "4",
+          "rang": 6,
+          "recall_at_5": 0,
+          "recall_at_10": 1,
+          "rr": 0.16666666666666666
+        }
+      ]
+    },
+    "cross_encoder_base": {
+      "modele": "cross_encoder_base",
+      "nombre_questions": 20,
+      "global": {
+        "recall_at_5": 0.9,
+        "recall_at_10": 1.0,
+        "mrr": 0.7429761904761905
+      },
+      "meme_langue": {
+        "recall_at_5": 0.8333333333333334,
+        "recall_at_10": 1.0,
+        "mrr": 0.6938492063492063
+      },
+      "translingue": {
+        "recall_at_5": 1.0,
+        "recall_at_10": 1.0,
+        "mrr": 0.8166666666666668
+      },
+      "details": [
+        {
+          "question": "Quels sont les bienfaits du sport ?",
+          "type": "translingue",
+          "doc_id_attendu": "physical-activity_en",
+          "page_attendue": "1",
+          "rang": 1,
+          "recall_at_5": 1,
+          "recall_at_10": 1,
+          "rr": 1.0
+        },
+        {
+          "question": "Quels sports peut-on pratiquer pour rester actif ?",
+          "type": "translingue",
+          "doc_id_attendu": "physical-activity_en",
+          "page_attendue": "2",
+          "rang": 1,
+          "recall_at_5": 1,
+          "recall_at_10": 1,
+          "rr": 1.0
+        },
+        {
+          "question": "Qui peut pratiquer une activité physique ?",
+          "type": "translingue",
+          "doc_id_attendu": "physical-activity_en",
+          "page_attendue": "3",
+          "rang": 3,
+          "recall_at_5": 1,
+          "recall_at_10": 1,
+          "rr": 0.3333333333333333
+        },
+        {
+          "question": "Pourquoi faut-il manger sainement ?",
+          "type": "translingue",
+          "doc_id_attendu": "healthy-diet_en",
+          "page_attendue": "1",
+          "rang": 1,
+          "recall_at_5": 1,
+          "recall_at_10": 1,
+          "rr": 1.0
+        },
+        {
+          "question": "Pourquoi faut-il manger des fruits et des légumes ?",
+          "type": "translingue",
+          "doc_id_attendu": "healthy-diet_en",
+          "page_attendue": "2",
+          "rang": 1,
+          "recall_at_5": 1,
+          "recall_at_10": 1,
+          "rr": 1.0
+        },
+        {
+          "question": "Pourquoi l'alcool est-il dangereux pendant la grossesse ?",
+          "type": "translingue",
+          "doc_id_attendu": "alcohol_ar",
+          "page_attendue": "3",
+          "rang": 1,
+          "recall_at_5": 1,
+          "recall_at_10": 1,
+          "rr": 1.0
+        },
+        {
+          "question": "Combien de personnes avaient des problèmes liés à l'alcool en 2019 ?",
+          "type": "translingue",
+          "doc_id_attendu": "alcohol_ar",
+          "page_attendue": "2",
+          "rang": 1,
+          "recall_at_5": 1,
+          "recall_at_10": 1,
+          "rr": 1.0
+        },
+        {
+          "question": "Pourquoi faut-il réduire le sel dans notre alimentation ?",
+          "type": "translingue",
+          "doc_id_attendu": "salt-reduction_ar",
+          "page_attendue": "2",
+          "rang": 5,
+          "recall_at_5": 1,
+          "recall_at_10": 1,
+          "rr": 0.2
+        },
+        {
+          "question": "Quels sont les symptômes du diabète ?",
+          "type": "meme_langue",
+          "doc_id_attendu": "diabetes_fr",
+          "page_attendue": "2",
+          "rang": 1,
+          "recall_at_5": 1,
+          "recall_at_10": 1,
+          "rr": 1.0
+        },
+        {
+          "question": "Qu'est-ce que le diabète ?",
+          "type": "meme_langue",
+          "doc_id_attendu": "diabetes_fr",
+          "page_attendue": "1",
+          "rang": 10,
+          "recall_at_5": 0,
+          "recall_at_10": 1,
+          "rr": 0.1
+        },
+        {
+          "question": "Qu'est-ce que l'hypertension ?",
+          "type": "meme_langue",
+          "doc_id_attendu": "hypertension_fr",
+          "page_attendue": "1",
+          "rang": 1,
+          "recall_at_5": 1,
+          "recall_at_10": 1,
+          "rr": 1.0
+        },
+        {
+          "question": "Quels sont les risques de l'hypertension ?",
+          "type": "meme_langue",
+          "doc_id_attendu": "hypertension_fr",
+          "page_attendue": "5",
+          "rang": 7,
+          "recall_at_5": 0,
+          "recall_at_10": 1,
+          "rr": 0.14285714285714285
+        },
+        {
+          "question": "Qu'est-ce que l'obésité ?",
+          "type": "meme_langue",
+          "doc_id_attendu": "obesity-and-overweight_fr",
+          "page_attendue": "1",
+          "rang": 3,
+          "recall_at_5": 1,
+          "recall_at_10": 1,
+          "rr": 0.3333333333333333
+        },
+        {
+          "question": "Pourquoi l'obésité est-elle dangereuse pour la santé ?",
+          "type": "meme_langue",
+          "doc_id_attendu": "obesity-and-overweight_fr",
+          "page_attendue": "4",
+          "rang": 1,
+          "recall_at_5": 1,
+          "recall_at_10": 1,
+          "rr": 1.0
+        },
+        {
+          "question": "Qu'est-ce que la tuberculose ?",
+          "type": "meme_langue",
+          "doc_id_attendu": "tuberculosis_fr",
+          "page_attendue": "1",
+          "rang": 1,
+          "recall_at_5": 1,
+          "recall_at_10": 1,
+          "rr": 1.0
+        },
+        {
+          "question": "Quels sont les symptômes de la tuberculose ?",
+          "type": "meme_langue",
+          "doc_id_attendu": "tuberculosis_fr",
+          "page_attendue": "3",
+          "rang": 4,
+          "recall_at_5": 1,
+          "recall_at_10": 1,
+          "rr": 0.25
+        },
+        {
+          "question": "Pourquoi le tabac est-il dangereux ?",
+          "type": "meme_langue",
+          "doc_id_attendu": "tobacco_fr",
+          "page_attendue": "1",
+          "rang": 1,
+          "recall_at_5": 1,
+          "recall_at_10": 1,
+          "rr": 1.0
+        },
+        {
+          "question": "Quels sont les dangers du tabagisme passif ?",
+          "type": "meme_langue",
+          "doc_id_attendu": "tobacco_fr",
+          "page_attendue": "1",
+          "rang": 1,
+          "recall_at_5": 1,
+          "recall_at_10": 1,
+          "rr": 1.0
+        },
+        {
+          "question": "Quelles sont les maladies non transmissibles ?",
+          "type": "meme_langue",
+          "doc_id_attendu": "noncommunicable-diseases_fr",
+          "page_attendue": "1",
+          "rang": 1,
+          "recall_at_5": 1,
+          "recall_at_10": 1,
+          "rr": 1.0
+        },
+        {
+          "question": "Comment prévenir les maladies non transmissibles ?",
+          "type": "meme_langue",
+          "doc_id_attendu": "noncommunicable-diseases_fr",
+          "page_attendue": "4",
+          "rang": 2,
+          "recall_at_5": 1,
+          "recall_at_10": 1,
+          "rr": 0.5
+        }
+      ]
+    },
+    "cross_encoder_finetuned": {
+      "modele": "cross_encoder_finetuned",
+      "nombre_questions": 20,
+      "global": {
+        "recall_at_5": 0.9,
+        "recall_at_10": 1.0,
+        "mrr": 0.7429761904761905
+      },
+      "meme_langue": {
+        "recall_at_5": 0.8333333333333334,
+        "recall_at_10": 1.0,
+        "mrr": 0.6938492063492063
+      },
+      "translingue": {
+        "recall_at_5": 1.0,
+        "recall_at_10": 1.0,
+        "mrr": 0.8166666666666668
+      },
+      "details": [
+        {
+          "question": "Quels sont les bienfaits du sport ?",
+          "type": "translingue",
+          "doc_id_attendu": "physical-activity_en",
+          "page_attendue": "1",
+          "rang": 1,
+          "recall_at_5": 1,
+          "recall_at_10": 1,
+          "rr": 1.0
+        },
+        {
+          "question": "Quels sports peut-on pratiquer pour rester actif ?",
+          "type": "translingue",
+          "doc_id_attendu": "physical-activity_en",
+          "page_attendue": "2",
+          "rang": 1,
+          "recall_at_5": 1,
+          "recall_at_10": 1,
+          "rr": 1.0
+        },
+        {
+          "question": "Qui peut pratiquer une activité physique ?",
+          "type": "translingue",
+          "doc_id_attendu": "physical-activity_en",
+          "page_attendue": "3",
+          "rang": 3,
+          "recall_at_5": 1,
+          "recall_at_10": 1,
+          "rr": 0.3333333333333333
+        },
+        {
+          "question": "Pourquoi faut-il manger sainement ?",
+          "type": "translingue",
+          "doc_id_attendu": "healthy-diet_en",
+          "page_attendue": "1",
+          "rang": 1,
+          "recall_at_5": 1,
+          "recall_at_10": 1,
+          "rr": 1.0
+        },
+        {
+          "question": "Pourquoi faut-il manger des fruits et des légumes ?",
+          "type": "translingue",
+          "doc_id_attendu": "healthy-diet_en",
+          "page_attendue": "2",
+          "rang": 1,
+          "recall_at_5": 1,
+          "recall_at_10": 1,
+          "rr": 1.0
+        },
+        {
+          "question": "Pourquoi l'alcool est-il dangereux pendant la grossesse ?",
+          "type": "translingue",
+          "doc_id_attendu": "alcohol_ar",
+          "page_attendue": "3",
+          "rang": 1,
+          "recall_at_5": 1,
+          "recall_at_10": 1,
+          "rr": 1.0
+        },
+        {
+          "question": "Combien de personnes avaient des problèmes liés à l'alcool en 2019 ?",
+          "type": "translingue",
+          "doc_id_attendu": "alcohol_ar",
+          "page_attendue": "2",
+          "rang": 1,
+          "recall_at_5": 1,
+          "recall_at_10": 1,
+          "rr": 1.0
+        },
+        {
+          "question": "Pourquoi faut-il réduire le sel dans notre alimentation ?",
+          "type": "translingue",
+          "doc_id_attendu": "salt-reduction_ar",
+          "page_attendue": "2",
+          "rang": 5,
+          "recall_at_5": 1,
+          "recall_at_10": 1,
+          "rr": 0.2
+        },
+        {
+          "question": "Quels sont les symptômes du diabète ?",
+          "type": "meme_langue",
+          "doc_id_attendu": "diabetes_fr",
+          "page_attendue": "2",
+          "rang": 1,
+          "recall_at_5": 1,
+          "recall_at_10": 1,
+          "rr": 1.0
+        },
+        {
+          "question": "Qu'est-ce que le diabète ?",
+          "type": "meme_langue",
+          "doc_id_attendu": "diabetes_fr",
+          "page_attendue": "1",
+          "rang": 10,
+          "recall_at_5": 0,
+          "recall_at_10": 1,
+          "rr": 0.1
+        },
+        {
+          "question": "Qu'est-ce que l'hypertension ?",
+          "type": "meme_langue",
+          "doc_id_attendu": "hypertension_fr",
+          "page_attendue": "1",
+          "rang": 1,
+          "recall_at_5": 1,
+          "recall_at_10": 1,
+          "rr": 1.0
+        },
+        {
+          "question": "Quels sont les risques de l'hypertension ?",
+          "type": "meme_langue",
+          "doc_id_attendu": "hypertension_fr",
+          "page_attendue": "5",
+          "rang": 7,
+          "recall_at_5": 0,
+          "recall_at_10": 1,
+          "rr": 0.14285714285714285
+        },
+        {
+          "question": "Qu'est-ce que l'obésité ?",
+          "type": "meme_langue",
+          "doc_id_attendu": "obesity-and-overweight_fr",
+          "page_attendue": "1",
+          "rang": 3,
+          "recall_at_5": 1,
+          "recall_at_10": 1,
+          "rr": 0.3333333333333333
+        },
+        {
+          "question": "Pourquoi l'obésité est-elle dangereuse pour la santé ?",
+          "type": "meme_langue",
+          "doc_id_attendu": "obesity-and-overweight_fr",
+          "page_attendue": "4",
+          "rang": 1,
+          "recall_at_5": 1,
+          "recall_at_10": 1,
+          "rr": 1.0
+        },
+        {
+          "question": "Qu'est-ce que la tuberculose ?",
+          "type": "meme_langue",
+          "doc_id_attendu": "tuberculosis_fr",
+          "page_attendue": "1",
+          "rang": 1,
+          "recall_at_5": 1,
+          "recall_at_10": 1,
+          "rr": 1.0
+        },
+        {
+          "question": "Quels sont les symptômes de la tuberculose ?",
+          "type": "meme_langue",
+          "doc_id_attendu": "tuberculosis_fr",
+          "page_attendue": "3",
+          "rang": 4,
+          "recall_at_5": 1,
+          "recall_at_10": 1,
+          "rr": 0.25
+        },
+        {
+          "question": "Pourquoi le tabac est-il dangereux ?",
+          "type": "meme_langue",
+          "doc_id_attendu": "tobacco_fr",
+          "page_attendue": "1",
+          "rang": 1,
+          "recall_at_5": 1,
+          "recall_at_10": 1,
+          "rr": 1.0
+        },
+        {
+          "question": "Quels sont les dangers du tabagisme passif ?",
+          "type": "meme_langue",
+          "doc_id_attendu": "tobacco_fr",
+          "page_attendue": "1",
+          "rang": 1,
+          "recall_at_5": 1,
+          "recall_at_10": 1,
+          "rr": 1.0
+        },
+        {
+          "question": "Quelles sont les maladies non transmissibles ?",
+          "type": "meme_langue",
+          "doc_id_attendu": "noncommunicable-diseases_fr",
+          "page_attendue": "1",
+          "rang": 1,
+          "recall_at_5": 1,
+          "recall_at_10": 1,
+          "rr": 1.0
+        },
+        {
+          "question": "Comment prévenir les maladies non transmissibles ?",
+          "type": "meme_langue",
+          "doc_id_attendu": "noncommunicable-diseases_fr",
+          "page_attendue": "4",
+          "rang": 2,
+          "recall_at_5": 1,
+          "recall_at_10": 1,
+          "rr": 0.5
+        }
+      ]
+    },
+    "cross_encoder_v2": {
+      "modele": "cross_encoder_v2",
+      "nombre_questions": 20,
+      "global": {
+        "recall_at_5": 0.9,
+        "recall_at_10": 1.0,
+        "mrr": 0.7429761904761905
+      },
+      "meme_langue": {
+        "recall_at_5": 0.8333333333333334,
+        "recall_at_10": 1.0,
+        "mrr": 0.6938492063492063
+      },
+      "translingue": {
+        "recall_at_5": 1.0,
+        "recall_at_10": 1.0,
+        "mrr": 0.8166666666666668
+      },
+      "details": [
+        {
+          "question": "Quels sont les bienfaits du sport ?",
+          "type": "translingue",
+          "doc_id_attendu": "physical-activity_en",
+          "page_attendue": "1",
+          "rang": 1,
+          "recall_at_5": 1,
+          "recall_at_10": 1,
+          "rr": 1.0
+        },
+        {
+          "question": "Quels sports peut-on pratiquer pour rester actif ?",
+          "type": "translingue",
+          "doc_id_attendu": "physical-activity_en",
+          "page_attendue": "2",
+          "rang": 1,
+          "recall_at_5": 1,
+          "recall_at_10": 1,
+          "rr": 1.0
+        },
+        {
+          "question": "Qui peut pratiquer une activité physique ?",
+          "type": "translingue",
+          "doc_id_attendu": "physical-activity_en",
+          "page_attendue": "3",
+          "rang": 3,
+          "recall_at_5": 1,
+          "recall_at_10": 1,
+          "rr": 0.3333333333333333
+        },
+        {
+          "question": "Pourquoi faut-il manger sainement ?",
+          "type": "translingue",
+          "doc_id_attendu": "healthy-diet_en",
+          "page_attendue": "1",
+          "rang": 1,
+          "recall_at_5": 1,
+          "recall_at_10": 1,
+          "rr": 1.0
+        },
+        {
+          "question": "Pourquoi faut-il manger des fruits et des légumes ?",
+          "type": "translingue",
+          "doc_id_attendu": "healthy-diet_en",
+          "page_attendue": "2",
+          "rang": 1,
+          "recall_at_5": 1,
+          "recall_at_10": 1,
+          "rr": 1.0
+        },
+        {
+          "question": "Pourquoi l'alcool est-il dangereux pendant la grossesse ?",
+          "type": "translingue",
+          "doc_id_attendu": "alcohol_ar",
+          "page_attendue": "3",
+          "rang": 1,
+          "recall_at_5": 1,
+          "recall_at_10": 1,
+          "rr": 1.0
+        },
+        {
+          "question": "Combien de personnes avaient des problèmes liés à l'alcool en 2019 ?",
+          "type": "translingue",
+          "doc_id_attendu": "alcohol_ar",
+          "page_attendue": "2",
+          "rang": 1,
+          "recall_at_5": 1,
+          "recall_at_10": 1,
+          "rr": 1.0
+        },
+        {
+          "question": "Pourquoi faut-il réduire le sel dans notre alimentation ?",
+          "type": "translingue",
+          "doc_id_attendu": "salt-reduction_ar",
+          "page_attendue": "2",
+          "rang": 5,
+          "recall_at_5": 1,
+          "recall_at_10": 1,
+          "rr": 0.2
+        },
+        {
+          "question": "Quels sont les symptômes du diabète ?",
+          "type": "meme_langue",
+          "doc_id_attendu": "diabetes_fr",
+          "page_attendue": "2",
+          "rang": 1,
+          "recall_at_5": 1,
+          "recall_at_10": 1,
+          "rr": 1.0
+        },
+        {
+          "question": "Qu'est-ce que le diabète ?",
+          "type": "meme_langue",
+          "doc_id_attendu": "diabetes_fr",
+          "page_attendue": "1",
+          "rang": 10,
+          "recall_at_5": 0,
+          "recall_at_10": 1,
+          "rr": 0.1
+        },
+        {
+          "question": "Qu'est-ce que l'hypertension ?",
+          "type": "meme_langue",
+          "doc_id_attendu": "hypertension_fr",
+          "page_attendue": "1",
+          "rang": 1,
+          "recall_at_5": 1,
+          "recall_at_10": 1,
+          "rr": 1.0
+        },
+        {
+          "question": "Quels sont les risques de l'hypertension ?",
+          "type": "meme_langue",
+          "doc_id_attendu": "hypertension_fr",
+          "page_attendue": "5",
+          "rang": 7,
+          "recall_at_5": 0,
+          "recall_at_10": 1,
+          "rr": 0.14285714285714285
+        },
+        {
+          "question": "Qu'est-ce que l'obésité ?",
+          "type": "meme_langue",
+          "doc_id_attendu": "obesity-and-overweight_fr",
+          "page_attendue": "1",
+          "rang": 3,
+          "recall_at_5": 1,
+          "recall_at_10": 1,
+          "rr": 0.3333333333333333
+        },
+        {
+          "question": "Pourquoi l'obésité est-elle dangereuse pour la santé ?",
+          "type": "meme_langue",
+          "doc_id_attendu": "obesity-and-overweight_fr",
+          "page_attendue": "4",
+          "rang": 1,
+          "recall_at_5": 1,
+          "recall_at_10": 1,
+          "rr": 1.0
+        },
+        {
+          "question": "Qu'est-ce que la tuberculose ?",
+          "type": "meme_langue",
+          "doc_id_attendu": "tuberculosis_fr",
+          "page_attendue": "1",
+          "rang": 1,
+          "recall_at_5": 1,
+          "recall_at_10": 1,
+          "rr": 1.0
+        },
+        {
+          "question": "Quels sont les symptômes de la tuberculose ?",
+          "type": "meme_langue",
+          "doc_id_attendu": "tuberculosis_fr",
+          "page_attendue": "3",
+          "rang": 4,
+          "recall_at_5": 1,
+          "recall_at_10": 1,
+          "rr": 0.25
+        },
+        {
+          "question": "Pourquoi le tabac est-il dangereux ?",
+          "type": "meme_langue",
+          "doc_id_attendu": "tobacco_fr",
+          "page_attendue": "1",
+          "rang": 1,
+          "recall_at_5": 1,
+          "recall_at_10": 1,
+          "rr": 1.0
+        },
+        {
+          "question": "Quels sont les dangers du tabagisme passif ?",
+          "type": "meme_langue",
+          "doc_id_attendu": "tobacco_fr",
+          "page_attendue": "1",
+          "rang": 1,
+          "recall_at_5": 1,
+          "recall_at_10": 1,
+          "rr": 1.0
+        },
+        {
+          "question": "Quelles sont les maladies non transmissibles ?",
+          "type": "meme_langue",
+          "doc_id_attendu": "noncommunicable-diseases_fr",
+          "page_attendue": "1",
+          "rang": 1,
+          "recall_at_5": 1,
+          "recall_at_10": 1,
+          "rr": 1.0
+        },
+        {
+          "question": "Comment prévenir les maladies non transmissibles ?",
+          "type": "meme_langue",
+          "doc_id_attendu": "noncommunicable-diseases_fr",
+          "page_attendue": "4",
+          "rang": 2,
+          "recall_at_5": 1,
+          "recall_at_10": 1,
+          "rr": 0.5
+        }
+      ]
+    }
+  }
+}

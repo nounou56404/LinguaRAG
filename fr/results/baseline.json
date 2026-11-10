@@ -1,0 +1,22 @@
+{
+  "modele": "hybride_bm25_dense_rrf",
+  "phase": "baseline",
+  "nombre_questions": 20,
+  "global": {
+    "recall_at_5": 0.55,
+    "recall_at_10": 0.95,
+    "mrr": 0.3612
+  },
+  "meme_langue": {
+    "nombre_questions": 12,
+    "recall_at_5": 0.75,
+    "recall_at_10": 1.0,
+    "mrr": 0.4681
+  },
+  "translingue": {
+    "nombre_questions": 8,
+    "recall_at_5": 0.25,
+    "recall_at_10": 0.875,
+    "mrr": 0.201
+  }
+}

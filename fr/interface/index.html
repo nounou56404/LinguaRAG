@@ -1,0 +1,788 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RAG Français | Assistant Intelligent</title>
+
+  <style>
+    :root {
+      --bg: #f5f7fb;
+      --sidebar: #111827;
+      --primary: #4f46e5;
+      --primary-hover: #4338ca;
+      --text: #172033;
+      --muted: #718096;
+      --border: #e5e9f2;
+      --white: #ffffff;
+      --success: #059669;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    .app {
+      display: flex;
+      height: 100vh;
+      height: 100dvh;
+      overflow: hidden;
+    }
+
+    /* SIDEBAR */
+
+    .sidebar {
+      width: 270px;
+      flex-shrink: 0;
+      background: var(--sidebar);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      padding: 25px 18px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 35px;
+    }
+
+    .brand-icon {
+      width: 43px;
+      height: 43px;
+      background: linear-gradient(135deg, #818cf8, #4f46e5);
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      font-size: 23px;
+    }
+
+    .brand h2 {
+      margin: 0;
+      font-size: 18px;
+    }
+
+    .brand p {
+      margin: 5px 0 0;
+      font-size: 12px;
+      color: #9ca3af;
+    }
+
+    .new-chat {
+      background: #273244;
+      color: white;
+      border: 1px solid #39465b;
+      padding: 13px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 14px;
+      text-align: left;
+    }
+
+    .new-chat:hover {
+      background: #374151;
+    }
+
+    .sidebar-label {
+      font-size: 11px;
+      color: #9ca3af;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin: 30px 8px 12px;
+    }
+
+    .side-item {
+      padding: 11px;
+      color: #d1d5db;
+      font-size: 13px;
+      border-radius: 10px;
+      margin-bottom: 6px;
+    }
+
+    .side-item.active {
+      background: #26334a;
+      color: white;
+    }
+
+    .sidebar-bottom {
+      margin-top: auto;
+      border-top: 1px solid #374151;
+      padding-top: 20px;
+    }
+
+    .status {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: #d1d5db;
+    }
+
+    .dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #9ca3af;
+    }
+
+    .dot.online {
+      background: #10b981;
+    }
+
+    .dot.offline {
+      background: #ef4444;
+    }
+
+    /* MAIN */
+
+    .main {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .header {
+      background: white;
+      padding: 19px 30px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .header h1 {
+      font-size: 18px;
+      margin: 0;
+    }
+
+    .header p {
+      font-size: 12px;
+      color: var(--muted);
+      margin: 5px 0 0;
+    }
+
+    .language {
+      background: #eef2ff;
+      color: var(--primary);
+      border-radius: 20px;
+      padding: 9px 15px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    /* CHAT */
+
+    .chat {
+      flex: 1;
+      overflow-y: auto;
+      padding: 35px 20px;
+    }
+
+    .chat-inner {
+      max-width: 850px;
+      margin: auto;
+    }
+
+    .welcome {
+      text-align: center;
+      padding: 55px 15px 30px;
+    }
+
+    .welcome-icon {
+      width: 72px;
+      height: 72px;
+      background: #e0e7ff;
+      color: var(--primary);
+      border-radius: 23px;
+      display: grid;
+      place-items: center;
+      font-size: 32px;
+      margin: 0 auto 20px;
+    }
+
+    .welcome h2 {
+      font-size: 26px;
+      margin-bottom: 10px;
+    }
+
+    .welcome p {
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .suggestions {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-top: 30px;
+    }
+
+    .suggestion {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 17px;
+      text-align: left;
+      cursor: pointer;
+      color: var(--text);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .suggestion:hover {
+      border-color: var(--primary);
+      background: #f8faff;
+    }
+
+    .message {
+      display: flex;
+      gap: 13px;
+      margin-bottom: 27px;
+      align-items: flex-start;
+    }
+
+    .message.user {
+      justify-content: flex-end;
+    }
+
+    .avatar {
+      width: 35px;
+      height: 35px;
+      flex-shrink: 0;
+      display: grid;
+      place-items: center;
+      border-radius: 11px;
+      background: #e0e7ff;
+      color: var(--primary);
+      font-size: 18px;
+    }
+
+    .bubble {
+      max-width: 85%;
+      padding: 16px 19px;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      line-height: 1.7;
+      font-size: 14px;
+      overflow-wrap: anywhere;
+    }
+
+    .user .bubble {
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-bottom-right-radius: 5px;
+    }
+
+    .assistant .bubble {
+      border-top-left-radius: 5px;
+    }
+
+    .answer-text {
+      white-space: pre-wrap;
+    }
+
+    .sources {
+      margin-top: 17px;
+      padding-top: 13px;
+      border-top: 1px solid var(--border);
+    }
+
+    .sources-title {
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 9px;
+    }
+
+    .source {
+      display: inline-block;
+      background: #eef2ff;
+      color: #4338ca;
+      border-radius: 8px;
+      padding: 7px 10px;
+      font-size: 11px;
+      margin: 3px;
+    }
+
+    .loading {
+      color: var(--muted);
+      font-style: italic;
+    }
+
+    /* INPUT */
+
+    .input-area {
+      background: var(--bg);
+      padding: 15px 25px 22px;
+    }
+
+    .input-container {
+      max-width: 850px;
+      margin: auto;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 11px;
+      display: flex;
+      align-items: flex-end;
+      gap: 12px;
+      box-shadow: 0 5px 25px rgba(0, 0, 0, .04);
+    }
+
+    textarea {
+      flex: 1;
+      border: none;
+      outline: none;
+      resize: none;
+      font-family: inherit;
+      font-size: 14px;
+      min-height: 40px;
+      max-height: 150px;
+      padding: 10px;
+      color: var(--text);
+    }
+
+    .send {
+      width: 44px;
+      height: 44px;
+      border: none;
+      border-radius: 13px;
+      background: var(--primary);
+      color: white;
+      font-size: 20px;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .send:hover {
+      background: var(--primary-hover);
+    }
+
+    .send:disabled {
+      opacity: .5;
+      cursor: not-allowed;
+    }
+
+    .footer-note {
+      text-align: center;
+      color: #9ca3af;
+      font-size: 11px;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 700px) {
+      .sidebar {
+        display: none;
+      }
+
+      .header {
+        padding: 16px;
+      }
+
+      .chat {
+        padding: 20px 12px;
+      }
+
+      .suggestions {
+        grid-template-columns: 1fr;
+      }
+
+      .welcome {
+        padding-top: 25px;
+      }
+
+      .welcome h2 {
+        font-size: 22px;
+      }
+
+      .bubble {
+        max-width: 92%;
+      }
+
+      .input-area {
+        padding: 12px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="app">
+
+  <!-- BARRE LATÉRALE -->
+  <aside class="sidebar">
+
+    <div class="brand">
+      <div class="brand-icon">✦</div>
+      <div>
+        <h2>RAG Assistant</h2>
+        <p>Module Français</p>
+      </div>
+    </div>
+
+    <button class="new-chat" onclick="nouvelleConversation()">
+      ＋ Nouvelle conversation
+    </button>
+
+    <div class="sidebar-label">Technologies</div>
+
+    <div class="side-item active">◈ Recherche hybride</div>
+    <div class="side-item">◈ BM25 + Dense Retrieval</div>
+    <div class="side-item">◈ Cross-Encoder V2</div>
+    <div class="side-item">◈ Génération Groq</div>
+    <div class="side-item">◈ Citations documentaires</div>
+
+    <div class="sidebar-bottom">
+      <div class="status">
+        <span class="dot" id="statusDot"></span>
+        <span id="statusText">Vérification du serveur...</span>
+      </div>
+    </div>
+
+  </aside>
+
+  <!-- CONTENU PRINCIPAL -->
+  <main class="main">
+
+    <header class="header">
+      <div>
+        <h1>Assistant documentaire intelligent</h1>
+        <p>Posez vos questions et obtenez des réponses sourcées.</p>
+      </div>
+
+      <span class="language">🇫🇷 Français</span>
+    </header>
+
+    <section class="chat" id="chat">
+      <div class="chat-inner" id="messages">
+
+        <div class="welcome" id="welcome">
+
+          <div class="welcome-icon">✦</div>
+
+          <h2>Bonjour, comment puis-je vous aider ?</h2>
+
+          <p>
+            Je suis votre assistant RAG français.<br>
+            Je réponds à vos questions à partir de documents
+            avec des citations vérifiables.
+          </p>
+
+          <div class="suggestions">
+
+            <button class="suggestion"
+              onclick="poserSuggestion('Quels sont les symptômes du diabète ?')">
+              🩺 Quels sont les symptômes du diabète ?
+            </button>
+
+            <button class="suggestion"
+              onclick="poserSuggestion('Comment prévenir le diabète de type 2 ?')">
+              💡 Comment prévenir le diabète de type 2 ?
+            </button>
+
+            <button class="suggestion"
+              onclick="poserSuggestion('Quels sont les symptômes de la tuberculose ?')">
+              📚 Quels sont les symptômes de la tuberculose ?
+            </button>
+
+            <button class="suggestion"
+              onclick="poserSuggestion('Quelles sont les complications du diabète ?')">
+              🔎 Quelles sont les complications du diabète ?
+            </button>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ZONE DE SAISIE -->
+    <div class="input-area">
+
+      <form class="input-container" id="questionForm">
+
+        <textarea
+          id="questionInput"
+          rows="1"
+          maxlength="2000"
+          placeholder="Écrivez votre question en français..."
+          required
+        ></textarea>
+
+        <button
+          type="submit"
+          class="send"
+          id="sendButton"
+          aria-label="Envoyer la question">
+          ➤
+        </button>
+
+      </form>
+
+      <div class="footer-note">
+        Assistant RAG • Réponses générées par IA à partir des documents indexés
+      </div>
+
+    </div>
+
+  </main>
+</div>
+
+<script>
+
+  const form = document.getElementById("questionForm");
+  const input = document.getElementById("questionInput");
+  const messages = document.getElementById("messages");
+  const chat = document.getElementById("chat");
+  const sendButton = document.getElementById("sendButton");
+
+  let enCours = false;
+  let conversationId = 0;
+
+
+  // --------------------------------------------------
+  // VÉRIFIER LE SERVEUR
+  // --------------------------------------------------
+
+  async function verifierServeur() {
+    const dot = document.getElementById("statusDot");
+    const text = document.getElementById("statusText");
+
+    try {
+      const response = await fetch("/api/health");
+      const data = await response.json();
+
+      if (response.ok && data.rag_charge) {
+        dot.className = "dot online";
+        text.textContent = "RAG français opérationnel";
+      } else {
+        dot.className = "dot offline";
+        text.textContent = "RAG indisponible";
+      }
+
+    } catch (error) {
+      dot.className = "dot offline";
+      text.textContent = "Serveur déconnecté";
+    }
+  }
+
+
+  // --------------------------------------------------
+  // AJOUTER UN MESSAGE
+  // --------------------------------------------------
+
+  function ajouterMessage(role, texte, citations = []) {
+
+    const ligne = document.createElement("div");
+    ligne.className = "message " + role;
+
+    if (role === "assistant") {
+      const avatar = document.createElement("div");
+      avatar.className = "avatar";
+      avatar.textContent = "✦";
+      ligne.appendChild(avatar);
+    }
+
+    const bubble = document.createElement("div");
+    bubble.className = "bubble";
+
+    const contenu = document.createElement("div");
+    contenu.className = "answer-text";
+
+    // textContent empêche l'injection HTML.
+    contenu.textContent = texte;
+    bubble.appendChild(contenu);
+
+    if (citations.length > 0) {
+
+      const sources = document.createElement("div");
+      sources.className = "sources";
+
+      const titre = document.createElement("div");
+      titre.className = "sources-title";
+      titre.textContent = "📚 Sources documentaires";
+
+      sources.appendChild(titre);
+
+      citations.forEach(citation => {
+
+        const source = document.createElement("span");
+        source.className = "source";
+
+        source.textContent =
+          "Source " + citation.source +
+          " • " + citation.doc_id +
+          " • Page " + citation.page_ou_section;
+
+        sources.appendChild(source);
+      });
+
+      bubble.appendChild(sources);
+    }
+
+    ligne.appendChild(bubble);
+    messages.appendChild(ligne);
+
+    chat.scrollTop = chat.scrollHeight;
+
+    return ligne;
+  }
+
+
+  // --------------------------------------------------
+  // POSER UNE QUESTION
+  // --------------------------------------------------
+
+  async function envoyerQuestion(question) {
+
+    question = question.trim();
+
+    if (!question || enCours) {
+      return;
+    }
+
+    const welcome = document.getElementById("welcome");
+
+    if (welcome) {
+      welcome.remove();
+    }
+
+    ajouterMessage("user", question);
+
+    input.value = "";
+    enCours = true;
+    sendButton.disabled = true;
+
+    const idActuel = conversationId;
+
+    const chargement = ajouterMessage(
+      "assistant",
+      "Recherche des documents et génération de la réponse..."
+    );
+
+    try {
+
+      const response = await fetch("/api/ask", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          question: question,
+          langue: "fr"
+        })
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(
+          typeof data.detail === "string"
+            ? data.detail
+            : "Une erreur est survenue."
+        );
+      }
+
+      // Ne pas afficher une ancienne réponse
+      // après le démarrage d'une nouvelle conversation.
+      if (idActuel !== conversationId) {
+        return;
+      }
+
+      chargement.remove();
+
+      ajouterMessage(
+        "assistant",
+        data.reponse,
+        data.citations || []
+      );
+
+    } catch (error) {
+
+      if (idActuel !== conversationId) {
+        return;
+      }
+
+      chargement.remove();
+
+      ajouterMessage(
+        "assistant",
+        "Erreur : " + error.message
+      );
+
+    } finally {
+      enCours = false;
+      sendButton.disabled = false;
+      input.focus();
+    }
+  }
+
+
+  // --------------------------------------------------
+  // SUGGESTIONS
+  // --------------------------------------------------
+
+  function poserSuggestion(question) {
+    envoyerQuestion(question);
+  }
+
+
+  // --------------------------------------------------
+  // NOUVELLE CONVERSATION
+  // --------------------------------------------------
+
+  function nouvelleConversation() {
+
+    if (enCours) {
+      return;
+    }
+
+    conversationId++;
+
+    messages.innerHTML = `
+      <div class="welcome" id="welcome">
+        <div class="welcome-icon">✦</div>
+        <h2>Nouvelle conversation</h2>
+        <p>Posez une question sur les documents indexés.</p>
+      </div>
+    `;
+
+    input.value = "";
+    input.focus();
+  }
+
+
+  // --------------------------------------------------
+  // ÉVÉNEMENTS
+  // --------------------------------------------------
+
+  form.addEventListener("submit", function(event) {
+    event.preventDefault();
+    envoyerQuestion(input.value);
+  });
+
+  input.addEventListener("keydown", function(event) {
+    if (event.key === "Enter" && !event.shiftKey) {
+      event.preventDefault();
+      envoyerQuestion(input.value);
+    }
+  });
+
+  verifierServeur();
+
+</script>
+
+</body>
+</html>

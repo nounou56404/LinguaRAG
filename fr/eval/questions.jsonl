@@ -1,0 +1,20 @@
+{"question": "Quels sont les bienfaits du sport ?", "langue_question": "fr", "doc_id_attendu": "physical-activity_en", "page_ou_section_attendue": "1", "type": "translingue"}
+{"question": "Quels sports peut-on pratiquer pour rester actif ?", "langue_question": "fr", "doc_id_attendu": "physical-activity_en", "page_ou_section_attendue": "2", "type": "translingue"}
+{"question": "Qui peut pratiquer une activité physique ?", "langue_question": "fr", "doc_id_attendu": "physical-activity_en", "page_ou_section_attendue": "3", "type": "translingue"}
+{"question": "Pourquoi faut-il manger sainement ?", "langue_question": "fr", "doc_id_attendu": "healthy-diet_en", "page_ou_section_attendue": "1", "type": "translingue"}
+{"question": "Pourquoi faut-il manger des fruits et des légumes ?", "langue_question": "fr", "doc_id_attendu": "healthy-diet_en", "page_ou_section_attendue": "2", "type": "translingue"}
+{"question": "Pourquoi l'alcool est-il dangereux pendant la grossesse ?", "langue_question": "fr", "doc_id_attendu": "alcohol_ar", "page_ou_section_attendue": "3", "type": "translingue"}
+{"question": "Combien de personnes avaient des problèmes liés à l'alcool en 2019 ?", "langue_question": "fr", "doc_id_attendu": "alcohol_ar", "page_ou_section_attendue": "2", "type": "translingue"}
+{"question": "Pourquoi faut-il réduire le sel dans notre alimentation ?", "langue_question": "fr", "doc_id_attendu": "salt-reduction_ar", "page_ou_section_attendue": "2", "type": "translingue"}
+{"question": "Quels sont les symptômes du diabète ?", "langue_question": "fr", "doc_id_attendu": "diabetes_fr", "page_ou_section_attendue": "2", "type": "meme_langue"}
+{"question": "Qu'est-ce que le diabète ?", "langue_question": "fr", "doc_id_attendu": "diabetes_fr", "page_ou_section_attendue": "1", "type": "meme_langue"}
+{"question": "Qu'est-ce que l'hypertension ?", "langue_question": "fr", "doc_id_attendu": "hypertension_fr", "page_ou_section_attendue": "1", "type": "meme_langue"}
+{"question": "Quels sont les risques de l'hypertension ?", "langue_question": "fr", "doc_id_attendu": "hypertension_fr", "page_ou_section_attendue": "5", "type": "meme_langue"}
+{"question": "Qu'est-ce que l'obésité ?", "langue_question": "fr", "doc_id_attendu": "obesity-and-overweight_fr", "page_ou_section_attendue": "1", "type": "meme_langue"}
+{"question": "Pourquoi l'obésité est-elle dangereuse pour la santé ?", "langue_question": "fr", "doc_id_attendu": "obesity-and-overweight_fr", "page_ou_section_attendue": "4", "type": "meme_langue"}
+{"question": "Qu'est-ce que la tuberculose ?", "langue_question": "fr", "doc_id_attendu": "tuberculosis_fr", "page_ou_section_attendue": "1", "type": "meme_langue"}
+{"question": "Quels sont les symptômes de la tuberculose ?", "langue_question": "fr", "doc_id_attendu": "tuberculosis_fr", "page_ou_section_attendue": "3", "type": "meme_langue"}
+{"question": "Pourquoi le tabac est-il dangereux ?", "langue_question": "fr", "doc_id_attendu": "tobacco_fr", "page_ou_section_attendue": "1", "type": "meme_langue"}
+{"question": "Quels sont les dangers du tabagisme passif ?", "langue_question": "fr", "doc_id_attendu": "tobacco_fr", "page_ou_section_attendue": "1", "type": "meme_langue"}
+{"question": "Quelles sont les maladies non transmissibles ?", "langue_question": "fr", "doc_id_attendu": "noncommunicable-diseases_fr", "page_ou_section_attendue": "1", "type": "meme_langue"}
+{"question": "Comment prévenir les maladies non transmissibles ?", "langue_question": "fr", "doc_id_attendu": "noncommunicable-diseases_fr", "page_ou_section_attendue": "4", "type": "meme_langue"}
