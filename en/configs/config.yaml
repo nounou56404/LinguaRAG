@@ -1,8 +1,26 @@
-personne: "A_COMPLETER"
+personne: "Oumaima"
 langue_questions: en
 collection: docs_en
 variante: dense_deux_decoupages
 finetune: embeddings_negatifs_difficiles
 taille_passage: 500
 chevauchement: 50
-hyperparametres: {}
+hyperparametres:
+    hyperparametres:
+    n_passages: 200
+    langues: [en, fr, ar]
+    min_chars: 200
+    neg_margin: 0.95
+    neg_window: 20
+    max_seq_length: 256
+    use_lora: true
+    lora_r: 16
+    lora_alpha: 32
+    epochs: 3
+    batch_size: 8
+    learning_rate: 0.0001       # le negatif difficile est cherche parmi les 20 premiers resultats
+modele_embedding: "BAAI/bge-m3"
+qdrant_url: "http://localhost:6333"   # serveur Docker (surchargeable via QDRANT_URL dans .env)      # decoupage utilise pour repondre ("page" | "section")serveur Docker (surchargeable via QDRANT_URL dans .env)  # modele Groq (voir console.groq.com/docs/models)
+       # decoupage utilise pour repondre ("page" | "section")   # serveur Docker (surchargeable via QDRANT_URL dans .env)
+llm_model: "qwen/qwen3.8-27b"
+strategie_generation: "section"    # modele Groq (voir console.groq.com/docs/models)

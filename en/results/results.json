@@ -1,0 +1,442 @@
+{
+  "personne": "Oumaima",
+  "langue_questions": "en",
+  "modele_base": "BAAI/bge-m3",
+  "variante": "dense_deux_decoupages (base=section)",
+  "commit": "d78e06f",
+  "date": "2026-11-08T18:27:13",
+  "graine": 42,
+  "n_questions": 20,
+  "base": {
+    "total": {
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "mrr": 0.975
+    },
+    "meme_langue": {
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "mrr": 0.9583
+    },
+    "translingue": {
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "mrr": 1.0
+    }
+  },
+  "comparaison_decoupages": {
+    "page": {
+      "document": {
+        "total": {
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "mrr": 0.95
+        },
+        "meme_langue": {
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "mrr": 0.9167
+        },
+        "translingue": {
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "mrr": 1.0
+        }
+      },
+      "passage": {
+        "total": {
+          "recall@5": 0.95,
+          "recall@10": 1.0,
+          "mrr": 0.9313
+        },
+        "meme_langue": {
+          "recall@5": 0.9167,
+          "recall@10": 1.0,
+          "mrr": 0.8854
+        },
+        "translingue": {
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "mrr": 1.0
+        }
+      }
+    },
+    "section": {
+      "document": {
+        "total": {
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "mrr": 0.975
+        },
+        "meme_langue": {
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "mrr": 0.9583
+        },
+        "translingue": {
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "mrr": 1.0
+        }
+      },
+      "passage": {
+        "total": {
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "mrr": 0.9417
+        },
+        "meme_langue": {
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "mrr": 0.9028
+        },
+        "translingue": {
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "mrr": 1.0
+        }
+      }
+    }
+  },
+  "echecs": [],
+  "finetune": {
+    "total": {
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "mrr": 0.975
+    },
+    "meme_langue": {
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "mrr": 0.9583
+    },
+    "translingue": {
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "mrr": 1.0
+    }
+  },
+  "finetune_detail": {
+    "modele_finetune": "BAAI/bge-m3 + LoRA",
+    "empreinte_sha256": "73dd2d69741d995606c59eed389a6647335e63b920262f57a43cd16508ecacb7",
+    "n_triplets": 164,
+    "hyperparametres": {
+      "hyperparametres": null,
+      "n_passages": 200,
+      "langues": [
+        "en",
+        "fr",
+        "ar"
+      ],
+      "min_chars": 200,
+      "neg_margin": 0.95,
+      "neg_window": 20,
+      "max_seq_length": 256,
+      "use_lora": true,
+      "lora_r": 16,
+      "lora_alpha": 32,
+      "epochs": 3,
+      "batch_size": 8,
+      "learning_rate": 0.0001
+    },
+    "avant": {
+      "page": {
+        "document": {
+          "total": {
+            "recall@5": 1.0,
+            "recall@10": 1.0,
+            "mrr": 0.95
+          },
+          "meme_langue": {
+            "recall@5": 1.0,
+            "recall@10": 1.0,
+            "mrr": 0.9167
+          },
+          "translingue": {
+            "recall@5": 1.0,
+            "recall@10": 1.0,
+            "mrr": 1.0
+          }
+        },
+        "passage": {
+          "total": {
+            "recall@5": 0.95,
+            "recall@10": 1.0,
+            "mrr": 0.9313
+          },
+          "meme_langue": {
+            "recall@5": 0.9167,
+            "recall@10": 1.0,
+            "mrr": 0.8854
+          },
+          "translingue": {
+            "recall@5": 1.0,
+            "recall@10": 1.0,
+            "mrr": 1.0
+          }
+        }
+      },
+      "section": {
+        "document": {
+          "total": {
+            "recall@5": 1.0,
+            "recall@10": 1.0,
+            "mrr": 0.975
+          },
+          "meme_langue": {
+            "recall@5": 1.0,
+            "recall@10": 1.0,
+            "mrr": 0.9583
+          },
+          "translingue": {
+            "recall@5": 1.0,
+            "recall@10": 1.0,
+            "mrr": 1.0
+          }
+        },
+        "passage": {
+          "total": {
+            "recall@5": 1.0,
+            "recall@10": 1.0,
+            "mrr": 0.9417
+          },
+          "meme_langue": {
+            "recall@5": 1.0,
+            "recall@10": 1.0,
+            "mrr": 0.9028
+          },
+          "translingue": {
+            "recall@5": 1.0,
+            "recall@10": 1.0,
+            "mrr": 1.0
+          }
+        }
+      }
+    },
+    "apres": {
+      "page": {
+        "document": {
+          "total": {
+            "recall@5": 1.0,
+            "recall@10": 1.0,
+            "mrr": 0.95
+          },
+          "meme_langue": {
+            "recall@5": 1.0,
+            "recall@10": 1.0,
+            "mrr": 0.9167
+          },
+          "translingue": {
+            "recall@5": 1.0,
+            "recall@10": 1.0,
+            "mrr": 1.0
+          }
+        },
+        "passage": {
+          "total": {
+            "recall@5": 0.95,
+            "recall@10": 1.0,
+            "mrr": 0.9056
+          },
+          "meme_langue": {
+            "recall@5": 0.9167,
+            "recall@10": 1.0,
+            "mrr": 0.8843
+          },
+          "translingue": {
+            "recall@5": 1.0,
+            "recall@10": 1.0,
+            "mrr": 0.9375
+          }
+        }
+      },
+      "section": {
+        "document": {
+          "total": {
+            "recall@5": 1.0,
+            "recall@10": 1.0,
+            "mrr": 0.975
+          },
+          "meme_langue": {
+            "recall@5": 1.0,
+            "recall@10": 1.0,
+            "mrr": 0.9583
+          },
+          "translingue": {
+            "recall@5": 1.0,
+            "recall@10": 1.0,
+            "mrr": 1.0
+          }
+        },
+        "passage": {
+          "total": {
+            "recall@5": 1.0,
+            "recall@10": 1.0,
+            "mrr": 0.9375
+          },
+          "meme_langue": {
+            "recall@5": 1.0,
+            "recall@10": 1.0,
+            "mrr": 0.8958
+          },
+          "translingue": {
+            "recall@5": 1.0,
+            "recall@10": 1.0,
+            "mrr": 1.0
+          }
+        }
+      }
+    },
+    "difficile": {
+      "n_questions": 20,
+      "avant": {
+        "page": {
+          "document": {
+            "total": {
+              "recall@5": 0.95,
+              "recall@10": 1.0,
+              "mrr": 0.84
+            },
+            "meme_langue": {
+              "recall@5": 1.0,
+              "recall@10": 1.0,
+              "mrr": 0.9167
+            },
+            "translingue": {
+              "recall@5": 0.875,
+              "recall@10": 1.0,
+              "mrr": 0.725
+            }
+          },
+          "passage": {
+            "total": {
+              "recall@5": 0.8,
+              "recall@10": 0.9,
+              "mrr": 0.7243
+            },
+            "meme_langue": {
+              "recall@5": 0.9167,
+              "recall@10": 1.0,
+              "mrr": 0.8426
+            },
+            "translingue": {
+              "recall@5": 0.625,
+              "recall@10": 0.75,
+              "mrr": 0.5469
+            }
+          }
+        },
+        "section": {
+          "document": {
+            "total": {
+              "recall@5": 0.95,
+              "recall@10": 0.95,
+              "mrr": 0.95
+            },
+            "meme_langue": {
+              "recall@5": 1.0,
+              "recall@10": 1.0,
+              "mrr": 1.0
+            },
+            "translingue": {
+              "recall@5": 0.875,
+              "recall@10": 0.875,
+              "mrr": 0.875
+            }
+          },
+          "passage": {
+            "total": {
+              "recall@5": 0.95,
+              "recall@10": 0.95,
+              "mrr": 0.85
+            },
+            "meme_langue": {
+              "recall@5": 1.0,
+              "recall@10": 1.0,
+              "mrr": 0.9167
+            },
+            "translingue": {
+              "recall@5": 0.875,
+              "recall@10": 0.875,
+              "mrr": 0.75
+            }
+          }
+        }
+      },
+      "apres": {
+        "page": {
+          "document": {
+            "total": {
+              "recall@5": 0.95,
+              "recall@10": 0.95,
+              "mrr": 0.8267
+            },
+            "meme_langue": {
+              "recall@5": 1.0,
+              "recall@10": 1.0,
+              "mrr": 0.8361
+            },
+            "translingue": {
+              "recall@5": 0.875,
+              "recall@10": 0.875,
+              "mrr": 0.8125
+            }
+          },
+          "passage": {
+            "total": {
+              "recall@5": 0.9,
+              "recall@10": 0.95,
+              "mrr": 0.71
+            },
+            "meme_langue": {
+              "recall@5": 0.9167,
+              "recall@10": 1.0,
+              "mrr": 0.7917
+            },
+            "translingue": {
+              "recall@5": 0.875,
+              "recall@10": 0.875,
+              "mrr": 0.5875
+            }
+          }
+        },
+        "section": {
+          "document": {
+            "total": {
+              "recall@5": 0.95,
+              "recall@10": 1.0,
+              "mrr": 0.9583
+            },
+            "meme_langue": {
+              "recall@5": 1.0,
+              "recall@10": 1.0,
+              "mrr": 1.0
+            },
+            "translingue": {
+              "recall@5": 0.875,
+              "recall@10": 1.0,
+              "mrr": 0.8958
+            }
+          },
+          "passage": {
+            "total": {
+              "recall@5": 0.95,
+              "recall@10": 1.0,
+              "mrr": 0.875
+            },
+            "meme_langue": {
+              "recall@5": 1.0,
+              "recall@10": 1.0,
+              "mrr": 0.9028
+            },
+            "translingue": {
+              "recall@5": 0.875,
+              "recall@10": 1.0,
+              "mrr": 0.8333
+            }
+          }
+        }
+      }
+    }
+  }
+}

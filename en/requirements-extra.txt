@@ -1,1 +1,8 @@
 # dependances propres a la personne
+# dependances propres a la personne C (en/)
+pymupdf
+qdrant-client
+sentence-transformers
+python-dotenv
+groq
+mcp

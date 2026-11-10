@@ -1,0 +1,104 @@
+{
+  "personne": "Oumaima",
+  "langue_questions": "en",
+  "modele_base": "BAAI/bge-m3",
+  "variante": "dense_deux_decoupages (base=section)",
+  "commit": "d78e06f",
+  "date": "2026-11-09T11:28:37",
+  "graine": 42,
+  "n_questions": 20,
+  "base": {
+    "total": {
+      "recall@5": 0.95,
+      "recall@10": 0.95,
+      "mrr": 0.95
+    },
+    "meme_langue": {
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "mrr": 1.0
+    },
+    "translingue": {
+      "recall@5": 0.875,
+      "recall@10": 0.875,
+      "mrr": 0.875
+    }
+  },
+  "comparaison_decoupages": {
+    "page": {
+      "document": {
+        "total": {
+          "recall@5": 0.95,
+          "recall@10": 1.0,
+          "mrr": 0.84
+        },
+        "meme_langue": {
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "mrr": 0.9167
+        },
+        "translingue": {
+          "recall@5": 0.875,
+          "recall@10": 1.0,
+          "mrr": 0.725
+        }
+      },
+      "passage": {
+        "total": {
+          "recall@5": 0.8,
+          "recall@10": 0.9,
+          "mrr": 0.7243
+        },
+        "meme_langue": {
+          "recall@5": 0.9167,
+          "recall@10": 1.0,
+          "mrr": 0.8426
+        },
+        "translingue": {
+          "recall@5": 0.625,
+          "recall@10": 0.75,
+          "mrr": 0.5469
+        }
+      }
+    },
+    "section": {
+      "document": {
+        "total": {
+          "recall@5": 0.95,
+          "recall@10": 0.95,
+          "mrr": 0.95
+        },
+        "meme_langue": {
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "mrr": 1.0
+        },
+        "translingue": {
+          "recall@5": 0.875,
+          "recall@10": 0.875,
+          "mrr": 0.875
+        }
+      },
+      "passage": {
+        "total": {
+          "recall@5": 0.95,
+          "recall@10": 0.95,
+          "mrr": 0.85
+        },
+        "meme_langue": {
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "mrr": 0.9167
+        },
+        "translingue": {
+          "recall@5": 0.875,
+          "recall@10": 0.875,
+          "mrr": 0.75
+        }
+      }
+    }
+  },
+  "echecs": [
+    "q15"
+  ]
+}
