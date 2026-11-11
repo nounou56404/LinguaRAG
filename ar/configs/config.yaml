@@ -5,7 +5,13 @@ variante: dense_multilingue
 finetune: embeddings_paires_question_passage
 taille_passage: 500
 chevauchement: 50
-hyperparametres: {}
+hyperparametres:
+  epochs: 2
+  batch_size: 16
+  lr: 0.00002
+  scale: 20.0
+  max_seq_length: 256
+  pause: 0.4
 qdrant_url: "http://localhost:6333"
 modele_base_provisoire: "intfloat/multilingual-e5-base"
 llm_model: "openai/gpt-oss-120b"

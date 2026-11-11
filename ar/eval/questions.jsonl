@@ -1,0 +1,20 @@
+{"question": "كم عدد الوفيات السنوية الناجمة عن تعاطي الكحول عالميا؟", "langue_question": "ar", "doc_id_attendu": "alcohol_ar", "page_ou_section_attendue": 1, "type": "meme_langue"}
+{"question": "ما هي الأمراض التي يرتبط بها تعاطي الكحول؟", "langue_question": "ar", "doc_id_attendu": "alcohol_ar", "page_ou_section_attendue": 2, "type": "meme_langue"}
+{"question": "كم بلغ عدد المصابين بداء السكري في العالم في عام 2022؟", "langue_question": "ar", "doc_id_attendu": "diabetes_ar", "page_ou_section_attendue": 1, "type": "meme_langue"}
+{"question": "كيف يمكن الوقاية من داء السكري من النمط 2؟", "langue_question": "ar", "doc_id_attendu": "diabetes_ar", "page_ou_section_attendue": 3, "type": "meme_langue"}
+{"question": "ما هي عوامل خطر الإصابة بارتفاع ضغط الدم؟", "langue_question": "ar", "doc_id_attendu": "hypertension_ar", "page_ou_section_attendue": 2, "type": "meme_langue"}
+{"question": "كيف يمكن الوقاية من ارتفاع ضغط الدم؟", "langue_question": "ar", "doc_id_attendu": "hypertension_ar", "page_ou_section_attendue": 4, "type": "meme_langue"}
+{"question": "كيف تعرّف منظمة الصحة العالمية زيادة الوزن والسمنة لدى البالغين؟", "langue_question": "ar", "doc_id_attendu": "obesity-and-overweight_ar", "page_ou_section_attendue": 2, "type": "meme_langue"}
+{"question": "ما هي أسباب السمنة؟", "langue_question": "ar", "doc_id_attendu": "obesity-and-overweight_ar", "page_ou_section_attendue": 3, "type": "meme_langue"}
+{"question": "كم بلغ المتوسط العالمي لمدخول الصوديوم لدى البالغين في عام 2021؟", "langue_question": "ar", "doc_id_attendu": "salt-reduction_ar", "page_ou_section_attendue": 1, "type": "meme_langue"}
+{"question": "ما هي المشكلات الصحية المرتبطة بالنظم الغذائية الغنية بالصوديوم؟", "langue_question": "ar", "doc_id_attendu": "salt-reduction_ar", "page_ou_section_attendue": 1, "type": "meme_langue"}
+{"question": "كيف ينتقل السل؟", "langue_question": "ar", "doc_id_attendu": "tuberculosis_ar", "page_ou_section_attendue": 1, "type": "meme_langue"}
+{"question": "ما هي أعراض السل؟", "langue_question": "ar", "doc_id_attendu": "tuberculosis_ar", "page_ou_section_attendue": 2, "type": "meme_langue"}
+{"question": "ما كمية الفواكه والخضروات الموصى بتناولها يوميا؟", "langue_question": "ar", "doc_id_attendu": "healthy-diet_en", "page_ou_section_attendue": 2, "type": "translingue"}
+{"question": "ما النسبة القصوى من إجمالي الطاقة التي ينبغي أن تأتي من الدهون؟", "langue_question": "ar", "doc_id_attendu": "healthy-diet_en", "page_ou_section_attendue": 3, "type": "translingue"}
+{"question": "كيف تعرّف منظمة الصحة العالمية النشاط البدني؟", "langue_question": "ar", "doc_id_attendu": "physical-activity_en", "page_ou_section_attendue": 1, "type": "translingue"}
+{"question": "ما هي فوائد النشاط البدني للصحة النفسية؟", "langue_question": "ar", "doc_id_attendu": "physical-activity_en", "page_ou_section_attendue": 1, "type": "translingue"}
+{"question": "كم عدد الوفيات السنوية في العالم الناجمة عن تلوث الهواء؟", "langue_question": "ar", "doc_id_attendu": "noncommunicable-diseases_fr", "page_ou_section_attendue": 3, "type": "translingue"}
+{"question": "ما نسبة الوفيات العالمية غير المرتبطة بالجائحة الناجمة عن الأمراض غير السارية؟", "langue_question": "ar", "doc_id_attendu": "noncommunicable-diseases_fr", "page_ou_section_attendue": 1, "type": "translingue"}
+{"question": "كم عدد الوفيات السنوية الناجمة عن التبغ؟", "langue_question": "ar", "doc_id_attendu": "tobacco_fr", "page_ou_section_attendue": 1, "type": "translingue"}
+{"question": "ما هي أضرار التدخين السلبي؟", "langue_question": "ar", "doc_id_attendu": "tobacco_fr", "page_ou_section_attendue": 3, "type": "translingue"}

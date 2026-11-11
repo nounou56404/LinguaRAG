@@ -1,0 +1,50 @@
+{
+  "personne": "Nourhene",
+  "langue_questions": "ar",
+  "modele_base": "intfloat/multilingual-e5-base",
+  "variante": "dense_multilingue",
+  "commit": "6d41524",
+  "date": "2026-11-11",
+  "graine": 42,
+  "n_questions": 20,
+  "base": {
+    "total": {
+      "recall@5": 0.8,
+      "recall@10": 0.8,
+      "mrr": 0.6141666666666666
+    },
+    "meme_langue": {
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "mrr": 0.9166666666666666
+    },
+    "translingue": {
+      "recall@5": 0.5,
+      "recall@10": 0.5,
+      "mrr": 0.16041666666666665
+    }
+  },
+  "finetune": {
+    "total": {
+      "recall@5": 0.0,
+      "recall@10": 0.0,
+      "mrr": 0.0
+    },
+    "meme_langue": {
+      "recall@5": 0.0,
+      "recall@10": 0.0,
+      "mrr": 0.0
+    },
+    "translingue": {
+      "recall@5": 0.0,
+      "recall@10": 0.0,
+      "mrr": 0.0
+    }
+  },
+  "echecs": [
+    "q15",
+    "q18",
+    "q19",
+    "q20"
+  ]
+}
