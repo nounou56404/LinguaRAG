@@ -8,3 +8,4 @@ chevauchement: 50
 hyperparametres: {}
 qdrant_url: "http://localhost:6333"
 modele_base_provisoire: "intfloat/multilingual-e5-base"
+llm_model: "openai/gpt-oss-120b"

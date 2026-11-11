@@ -1,2 +1,4 @@
 # dependances propres a la personne
 pypdf
+groq
+python-dotenv
