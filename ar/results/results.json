@@ -3,8 +3,8 @@
   "langue_questions": "ar",
   "modele_base": "intfloat/multilingual-e5-base",
   "variante": "dense_multilingue",
-  "commit": "6d41524",
-  "date": "2026-11-11",
+  "commit": "c2fe376",
+  "date": "2026-11-12",
   "graine": 42,
   "n_questions": 20,
   "base": {

@@ -1,10 +1,12 @@
 """Fine-tuning des embeddings sur des paires question arabe -> passage."""
 
+import gc
 import hashlib
 import json
 import os
 import random
 import re
+import shutil
 import sys
 import time
 from pathlib import Path
@@ -15,6 +17,7 @@ import yaml
 from dotenv import load_dotenv
 from qdrant_client import QdrantClient, models
 
+from . import retrieve
 from .evaluate import PARAMS, QUESTIONS, RESULTS, _load_questions, _metrics, _rank, run_eval
 from .index import load_chunks, load_config, model_name
 from .ingest import ROOT
@@ -23,15 +26,18 @@ load_dotenv(ROOT / "ar" / ".env")
 
 PAIRS = ROOT / "ar" / "data_derived" / "pairs_ft.jsonl"
 MODEL_DIR = ROOT / "ar" / "models" / "e5_ft"
+MARQUEUR = MODEL_DIR / "ENTRAINE.ok"
 COLLECTION_FT = "docs_ar_ft"
+ESPACE_MIN_GO = 2.5
 ARABE = re.compile(r"[\u0600-\u06FF]")
 DEFAUTS = {
     "epochs": 2,
-    "batch_size": 16,
+    "batch_size": 8,
     "lr": 2e-5,
     "scale": 20.0,
-    "max_seq_length": 256,
+    "max_seq_length": 128,
     "pause": 0.4,
+    "gradient_checkpointing": True,
 }
 
 
@@ -55,11 +61,16 @@ def _lire_paires() -> dict:
 
 def generer_paires(config: dict, chunks: list[dict]) -> list[dict]:
     """Une question arabe par passage, via le LLM. Reprend la ou on s'est arrete."""
-    from groq import Groq
-
+    deja = _lire_paires()
     api_key = os.environ.get("LLM_API_KEY", "").strip()
     if not api_key:
+        if deja:
+            print(f"LLM_API_KEY absente : on reutilise les {len(deja)} paires existantes")
+            return list(deja.values())
         raise SystemExit("LLM_API_KEY manquante dans ar/.env")
+
+    from groq import Groq
+
     client = Groq(api_key=api_key)
     hp = _hp(config)
 
@@ -68,7 +79,6 @@ def generer_paires(config: dict, chunks: list[dict]) -> list[dict]:
         (q["doc_id_attendu"], str(q["page_ou_section_attendue"]))
         for q in _load_questions(QUESTIONS)
     }
-    deja = _lire_paires()
     PAIRS.parent.mkdir(parents=True, exist_ok=True)
     nouveaux = 0
     with open(PAIRS, "a", encoding="utf-8") as f:
@@ -122,6 +132,11 @@ def generer_paires(config: dict, chunks: list[dict]) -> list[dict]:
     return list(deja.values())
 
 
+def _vers_device(batch: dict, device) -> dict:
+    """Ne deplace que les tenseurs : tokenize renvoie aussi des valeurs texte."""
+    return {k: (v.to(device) if torch.is_tensor(v) else v) for k, v in batch.items()}
+
+
 def entrainer(config: dict, paires: list[dict], graine: int) -> None:
     from sentence_transformers import SentenceTransformer
 
@@ -130,10 +145,24 @@ def entrainer(config: dict, paires: list[dict], graine: int) -> None:
     torch.manual_seed(graine)
     model = SentenceTransformer(model_name(config))
     model.max_seq_length = int(hp["max_seq_length"])
-    try:  # on gele la table de mots : moins de memoire, moins de surapprentissage
-        model[0].auto_model.embeddings.word_embeddings.weight.requires_grad_(False)
+    auto = model[0].auto_model
+
+    # On gele la table de mots : moins de memoire (etats d'AdamW) et moins de surapprentissage.
+    gele = False
+    try:
+        auto.embeddings.word_embeddings.weight.requires_grad_(False)
+        gele = True
     except AttributeError:
-        pass
+        print("ATTENTION : table de mots non trouvee, elle n'est pas gelee")
+    if hp.get("gradient_checkpointing"):
+        try:
+            auto.gradient_checkpointing_enable()
+        except Exception as e:
+            print("checkpointing indisponible :", type(e).__name__)
+
+    n_train = sum(p.numel() for p in model.parameters() if p.requires_grad)
+    print(f"parametres entrainables : {n_train / 1e6:.0f} M (table de mots gelee : {gele})")
+
     device = model.device
     opt = torch.optim.AdamW(
         [p for p in model.parameters() if p.requires_grad], lr=float(hp["lr"])
@@ -147,10 +176,8 @@ def entrainer(config: dict, paires: list[dict], graine: int) -> None:
             lot = paires[i : i + bs]
             if len(lot) < 2:
                 continue
-            q = model.tokenize(["query: " + p["question"] for p in lot])
-            d = model.tokenize(["passage: " + p["texte"] for p in lot])
-            q = {k: v.to(device) for k, v in q.items()}
-            d = {k: v.to(device) for k, v in d.items()}
+            q = _vers_device(model.tokenize(["query: " + p["question"] for p in lot]), device)
+            d = _vers_device(model.tokenize(["passage: " + p["texte"] for p in lot]), device)
             qe = F.normalize(model(q)["sentence_embedding"], dim=-1)
             de = F.normalize(model(d)["sentence_embedding"], dim=-1)
             scores = qe @ de.T * scale  # negatifs = autres passages du lot
@@ -160,8 +187,14 @@ def entrainer(config: dict, paires: list[dict], graine: int) -> None:
             opt.step()
             pertes.append(perte.item())
         print(f"epoque {ep + 1} : perte moyenne {sum(pertes) / len(pertes):.4f}")
+
+    model.eval()
+    shutil.rmtree(MODEL_DIR, ignore_errors=True)  # supprime un ancien fichier partiel
     MODEL_DIR.mkdir(parents=True, exist_ok=True)
     model.save(str(MODEL_DIR))
+    MARQUEUR.write_text("ok", encoding="utf-8")  # ecrit seulement si la sauvegarde a reussi
+    del model, opt
+    gc.collect()
 
 
 def _empreinte(dossier: Path) -> str:
@@ -179,13 +212,15 @@ def evaluer_ft(config: dict, chunks: list[dict], questions: list[dict]) -> tuple
     from sentence_transformers import SentenceTransformer
 
     model = SentenceTransformer(str(MODEL_DIR))
-    client = QdrantClient(url=config["qdrant_url"])
+    url = config["qdrant_url"]
+    client = QdrantClient(":memory:") if url == ":memory:" else QdrantClient(url=url, timeout=60)
     vecs = model.encode(
         ["passage: " + c["texte"] for c in chunks],
         normalize_embeddings=True,
-        batch_size=32,
+        batch_size=16,
         show_progress_bar=False,
     )
+    
     # Collection separee : l'index de base docs_ar n'est pas touche.
     if client.collection_exists(COLLECTION_FT):
         client.delete_collection(COLLECTION_FT)
@@ -204,9 +239,7 @@ def evaluer_ft(config: dict, chunks: list[dict], questions: list[dict]) -> tuple
     echecs = []
     for n, q in enumerate(questions, start=1):
         qv = model.encode(["query: " + q["question"]], normalize_embeddings=True)[0].tolist()
-        res = client.query_points(
-            COLLECTION_FT, query=qv, limit=10, with_payload=True
-        ).points
+        res = client.query_points(COLLECTION_FT, query=qv, limit=10, with_payload=True).points
         passages = [
             {"doc_id": r.payload["doc_id"], "page_ou_section": r.payload["page_ou_section"]}
             for r in res
@@ -226,11 +259,25 @@ def run_finetune(config=None) -> dict:
     chunks = load_chunks()
     questions = _load_questions(QUESTIONS)
 
-    avant = run_eval(QUESTIONS, config)["base"]  # reecrit results.json (base)
+    avant = run_eval(QUESTIONS, config)["base"]  # reecrit results.json (bloc base)
     paires = generer_paires(config, chunks)
     if len(paires) < 50:
         raise SystemExit(f"Trop peu de paires ({len(paires)}) pour entrainer.")
-    entrainer(config, paires, graine)
+
+    # Libere le modele de recherche (s'il est en cache) avant d'entrainer.
+    cache = getattr(retrieve, "_resources", None)
+    if hasattr(cache, "cache_clear"):
+        cache.cache_clear()
+    gc.collect()
+
+    if MARQUEUR.exists():
+        print("modele deja entraine : entrainement saute (supprime ar/models/e5_ft pour refaire)")
+    else:
+        libre = shutil.disk_usage(ROOT).free / 1e9
+        if libre < ESPACE_MIN_GO:
+            raise SystemExit(f"Espace disque insuffisant : {libre:.1f} Go libres, {ESPACE_MIN_GO} Go requis")
+        entrainer(config, paires, graine)
+
     apres, echecs_ft = evaluer_ft(config, chunks, questions)
 
     resultats = json.loads(RESULTS.read_text(encoding="utf-8"))
