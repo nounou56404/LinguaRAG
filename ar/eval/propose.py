@@ -13,4 +13,6 @@ with open(path, encoding="utf-8") as f:
         print(q["question"])
         for r in search(q["question"], k=5, langue=None):
             marque = "*" if r["doc_id"] == q["doc_id_attendu"] else " "
-            print(f" {marque} {r['doc_id']} p.{r['page_ou_section']}  {r['texte'][:70]}")
+            print(
+                f" {marque} {r['doc_id']} p.{r['page_ou_section']}  {r['texte'][:70]}"
+            )

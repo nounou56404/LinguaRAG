@@ -18,7 +18,15 @@ from dotenv import load_dotenv
 from qdrant_client import QdrantClient, models
 
 from . import retrieve
-from .evaluate import PARAMS, QUESTIONS, RESULTS, _load_questions, _metrics, _rank, run_eval
+from .evaluate import (
+    PARAMS,
+    QUESTIONS,
+    RESULTS,
+    _load_questions,
+    _metrics,
+    _rank,
+    run_eval,
+)
 from .index import load_chunks, load_config, model_name
 from .ingest import ROOT
 
@@ -65,7 +73,9 @@ def generer_paires(config: dict, chunks: list[dict]) -> list[dict]:
     api_key = os.environ.get("LLM_API_KEY", "").strip()
     if not api_key:
         if deja:
-            print(f"LLM_API_KEY absente : on reutilise les {len(deja)} paires existantes")
+            print(
+                f"LLM_API_KEY absente : on reutilise les {len(deja)} paires existantes"
+            )
             return list(deja.values())
         raise SystemExit("LLM_API_KEY manquante dans ar/.env")
 
@@ -109,9 +119,11 @@ def generer_paires(config: dict, chunks: list[dict]) -> list[dict]:
                             }
                         ],
                     )
-                    question = (rep.choices[0].message.content or "").strip().split("\n")[0]
+                    question = (
+                        (rep.choices[0].message.content or "").strip().split("\n")[0]
+                    )
                     break
-                except Exception as e:  # limite de debit, reseau...
+                except Exception as e:  # noqa: BLE001 (limite de debit, reseau...)
                     print("  retry :", type(e).__name__)
                     time.sleep(5 * (tentative + 1))
             if not question or not ARABE.search(question):
@@ -157,11 +169,13 @@ def entrainer(config: dict, paires: list[dict], graine: int) -> None:
     if hp.get("gradient_checkpointing"):
         try:
             auto.gradient_checkpointing_enable()
-        except Exception as e:
+        except (AttributeError, ValueError, RuntimeError) as e:
             print("checkpointing indisponible :", type(e).__name__)
 
     n_train = sum(p.numel() for p in model.parameters() if p.requires_grad)
-    print(f"parametres entrainables : {n_train / 1e6:.0f} M (table de mots gelee : {gele})")
+    print(
+        f"parametres entrainables : {n_train / 1e6:.0f} M (table de mots gelee : {gele})"
+    )
 
     device = model.device
     opt = torch.optim.AdamW(
@@ -176,8 +190,12 @@ def entrainer(config: dict, paires: list[dict], graine: int) -> None:
             lot = paires[i : i + bs]
             if len(lot) < 2:
                 continue
-            q = _vers_device(model.tokenize(["query: " + p["question"] for p in lot]), device)
-            d = _vers_device(model.tokenize(["passage: " + p["texte"] for p in lot]), device)
+            q = _vers_device(
+                model.tokenize(["query: " + p["question"] for p in lot]), device
+            )
+            d = _vers_device(
+                model.tokenize(["passage: " + p["texte"] for p in lot]), device
+            )
             qe = F.normalize(model(q)["sentence_embedding"], dim=-1)
             de = F.normalize(model(d)["sentence_embedding"], dim=-1)
             scores = qe @ de.T * scale  # negatifs = autres passages du lot
@@ -192,7 +210,9 @@ def entrainer(config: dict, paires: list[dict], graine: int) -> None:
     shutil.rmtree(MODEL_DIR, ignore_errors=True)  # supprime un ancien fichier partiel
     MODEL_DIR.mkdir(parents=True, exist_ok=True)
     model.save(str(MODEL_DIR))
-    MARQUEUR.write_text("ok", encoding="utf-8")  # ecrit seulement si la sauvegarde a reussi
+    MARQUEUR.write_text(
+        "ok", encoding="utf-8"
+    )  # ecrit seulement si la sauvegarde a reussi
     del model, opt
     gc.collect()
 
@@ -208,25 +228,33 @@ def _empreinte(dossier: Path) -> str:
     return h.hexdigest()
 
 
-def evaluer_ft(config: dict, chunks: list[dict], questions: list[dict]) -> tuple[dict, list]:
+def evaluer_ft(
+    config: dict, chunks: list[dict], questions: list[dict]
+) -> tuple[dict, list]:
     from sentence_transformers import SentenceTransformer
 
     model = SentenceTransformer(str(MODEL_DIR))
     url = config["qdrant_url"]
-    client = QdrantClient(":memory:") if url == ":memory:" else QdrantClient(url=url, timeout=60)
+    client = (
+        QdrantClient(":memory:")
+        if url == ":memory:"
+        else QdrantClient(url=url, timeout=60)
+    )
     vecs = model.encode(
         ["passage: " + c["texte"] for c in chunks],
         normalize_embeddings=True,
         batch_size=16,
         show_progress_bar=False,
     )
-    
+
     # Collection separee : l'index de base docs_ar n'est pas touche.
     if client.collection_exists(COLLECTION_FT):
         client.delete_collection(COLLECTION_FT)
     client.create_collection(
         COLLECTION_FT,
-        vectors_config=models.VectorParams(size=len(vecs[0]), distance=models.Distance.COSINE),
+        vectors_config=models.VectorParams(
+            size=len(vecs[0]), distance=models.Distance.COSINE
+        ),
     )
     client.upsert(
         COLLECTION_FT,
@@ -238,10 +266,17 @@ def evaluer_ft(config: dict, chunks: list[dict], questions: list[dict]) -> tuple
     ranks = {"total": [], "meme_langue": [], "translingue": []}
     echecs = []
     for n, q in enumerate(questions, start=1):
-        qv = model.encode(["query: " + q["question"]], normalize_embeddings=True)[0].tolist()
-        res = client.query_points(COLLECTION_FT, query=qv, limit=10, with_payload=True).points
+        qv = model.encode(["query: " + q["question"]], normalize_embeddings=True)[
+            0
+        ].tolist()
+        res = client.query_points(
+            COLLECTION_FT, query=qv, limit=10, with_payload=True
+        ).points
         passages = [
-            {"doc_id": r.payload["doc_id"], "page_ou_section": r.payload["page_ou_section"]}
+            {
+                "doc_id": r.payload["doc_id"],
+                "page_ou_section": r.payload["page_ou_section"],
+            }
             for r in res
         ]
         r = _rank(passages, q)
@@ -271,11 +306,15 @@ def run_finetune(config=None) -> dict:
     gc.collect()
 
     if MARQUEUR.exists():
-        print("modele deja entraine : entrainement saute (supprime ar/models/e5_ft pour refaire)")
+        print(
+            "modele deja entraine : entrainement saute (supprime ar/models/e5_ft pour refaire)"
+        )
     else:
         libre = shutil.disk_usage(ROOT).free / 1e9
         if libre < ESPACE_MIN_GO:
-            raise SystemExit(f"Espace disque insuffisant : {libre:.1f} Go libres, {ESPACE_MIN_GO} Go requis")
+            raise SystemExit(
+                f"Espace disque insuffisant : {libre:.1f} Go libres, {ESPACE_MIN_GO} Go requis"
+            )
         entrainer(config, paires, graine)
 
     apres, echecs_ft = evaluer_ft(config, chunks, questions)
@@ -287,7 +326,9 @@ def run_finetune(config=None) -> dict:
         "nom": f"{model_name(config)} + fine-tuning ({len(paires)} paires)",
         "empreinte_sha256": _empreinte(MODEL_DIR),
     }
-    RESULTS.write_text(json.dumps(resultats, ensure_ascii=False, indent=2), encoding="utf-8")
+    RESULTS.write_text(
+        json.dumps(resultats, ensure_ascii=False, indent=2), encoding="utf-8"
+    )
 
     for groupe in ("total", "meme_langue", "translingue"):
         a, b = avant[groupe], apres[groupe]

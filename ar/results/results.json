@@ -26,19 +26,19 @@
   },
   "finetune": {
     "total": {
-      "recall@5": 0.0,
-      "recall@10": 0.0,
-      "mrr": 0.0
+      "recall@5": 0.9,
+      "recall@10": 1.0,
+      "mrr": 0.756031746031746
     },
     "meme_langue": {
-      "recall@5": 0.0,
-      "recall@10": 0.0,
-      "mrr": 0.0
+      "recall@5": 0.8333333333333334,
+      "recall@10": 1.0,
+      "mrr": 0.7156084656084656
     },
     "translingue": {
-      "recall@5": 0.0,
-      "recall@10": 0.0,
-      "mrr": 0.0
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "mrr": 0.8166666666666667
     }
   },
   "echecs": [
@@ -46,5 +46,11 @@
     "q18",
     "q19",
     "q20"
-  ]
+  ],
+  "echecs_finetune": [],
+  "modele_finetune": {
+    "nom": "intfloat/multilingual-e5-base + fine-tuning (392 paires)",
+    "empreinte_sha256": "dcc51f73ec580f957936aa2e984e24b0f2d46dd858d31972c947f689a9b000f6",
+    "environnement": "Kaggle GPU"
+  }
 }

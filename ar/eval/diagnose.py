@@ -9,7 +9,9 @@ path = ROOT / "ar" / "eval" / "questions.jsonl"
 for n, line in enumerate(path.read_text(encoding="utf-8").splitlines(), start=1):
     q = json.loads(line)
     res = search(q["question"], k=50, langue=None)
-    doc = next((i for i, r in enumerate(res, 1) if r["doc_id"] == q["doc_id_attendu"]), None)
+    doc = next(
+        (i for i, r in enumerate(res, 1) if r["doc_id"] == q["doc_id_attendu"]), None
+    )
     exact = next(
         (
             i

@@ -2,3 +2,5 @@
 pypdf
 groq
 python-dotenv
+mcp==2.3.0
+mcp-types==2.3.0
