@@ -1,6 +1,7 @@
 """Embeddings et collection vectorielle Qdrant (docs_ar)."""
 
 import json
+import os
 import uuid
 from collections import defaultdict
 from pathlib import Path
@@ -17,7 +18,14 @@ PARAMS_PATH = ROOT / "contract" / "params.yaml"
 
 
 def load_config() -> dict:
-    return yaml.safe_load(CONFIG_PATH.read_text(encoding="utf-8"))
+    config = yaml.safe_load(CONFIG_PATH.read_text(encoding="utf-8"))
+    # RAG_VARIANTE=ft : recherche avec le modele fine-tune, dans une collection separee.
+    # Par defaut (variable absente) : modele de base, utilise par les evaluations.
+    if os.environ.get("RAG_VARIANTE", "").strip().lower() == "ft":
+        ft = config.get("serve_finetune") or {}
+        config["collection"] = ft.get("collection", "docs_ar_e5ft")
+        config["modele_recherche"] = ft.get("modele_recherche", "ar/models/e5_ft")
+    return config
 
 
 def model_name(config: dict) -> str:
@@ -32,11 +40,18 @@ def model_name(config: dict) -> str:
 def load_model(config: dict):
     from sentence_transformers import SentenceTransformer
 
+    chemin = config.get("modele_recherche")
+    if chemin:
+        chemin = Path(chemin)
+        if not chemin.is_absolute():
+            chemin = ROOT / chemin
+        return SentenceTransformer(str(chemin))
     return SentenceTransformer(model_name(config))
 
 
 def _prefix(config: dict, kind: str) -> str:
-    """Les modeles e5 demandent 'passage: ' pour les documents et 'query: ' pour les questions."""
+    """Les modeles e5 demandent 'passage: ' pour les documents et 'query: ' pour les questions.
+    Le modele fine-tune est un e5 : on se base sur le nom du modele de base."""
     return f"{kind}: " if "e5" in model_name(config).lower() else ""
 
 

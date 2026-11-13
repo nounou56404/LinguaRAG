@@ -16,3 +16,7 @@ hyperparametres:
 qdrant_url: "http://localhost:6333"
 modele_base_provisoire: "intfloat/multilingual-e5-base"
 llm_model: "openai/gpt-oss-120b"
+
+serve_finetune:
+  collection: docs_ar_e5ft
+  modele_recherche: ar/models/e5_ft

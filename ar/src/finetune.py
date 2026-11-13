@@ -28,7 +28,7 @@ from .evaluate import (
     run_eval,
 )
 from .index import load_chunks, load_config, model_name
-from .ingest import ROOT
+from .ingest import ROOT, detect_lang, normalize
 
 load_dotenv(ROOT / "ar" / ".env")
 
@@ -230,7 +230,8 @@ def _empreinte(dossier: Path) -> str:
 
 def evaluer_ft(
     config: dict, chunks: list[dict], questions: list[dict]
-) -> tuple[dict, list]:
+) -> tuple[dict, list, dict]:
+    """Retourne (metriques, echecs, metriques meme langue avec filtre sur la langue)."""
     from sentence_transformers import SentenceTransformer
 
     model = SentenceTransformer(str(MODEL_DIR))
@@ -264,11 +265,20 @@ def evaluer_ft(
         ],
     )
     ranks = {"total": [], "meme_langue": [], "translingue": []}
+    ranks_filtre = []  # meme langue, recherche limitee aux documents de la langue
     echecs = []
+    filtre_langue = models.Filter(
+        must=[
+            models.FieldCondition(
+                key="langue",
+                match=models.MatchValue(value=config["langue_questions"]),
+            )
+        ]
+    )
     for n, q in enumerate(questions, start=1):
-        qv = model.encode(["query: " + q["question"]], normalize_embeddings=True)[
-            0
-        ].tolist()
+        # meme normalisation que retrieve.search, pour comparer avec la base
+        texte_q = normalize(q["question"], detect_lang(q["question"]))
+        qv = model.encode(["query: " + texte_q], normalize_embeddings=True)[0].tolist()
         res = client.query_points(
             COLLECTION_FT, query=qv, limit=10, with_payload=True
         ).points
@@ -284,7 +294,27 @@ def evaluer_ft(
         ranks[q["type"]].append(r)
         if r is None:
             echecs.append(f"q{n:02d}")
-    return {k: _metrics(v) for k, v in ranks.items()}, echecs
+        if q["type"] == "meme_langue":
+            res_f = client.query_points(
+                COLLECTION_FT,
+                query=qv,
+                limit=10,
+                query_filter=filtre_langue,
+                with_payload=True,
+            ).points
+            ranks_filtre.append(
+                _rank(
+                    [
+                        {
+                            "doc_id": x.payload["doc_id"],
+                            "page_ou_section": x.payload["page_ou_section"],
+                        }
+                        for x in res_f
+                    ],
+                    q,
+                )
+            )
+    return {k: _metrics(v) for k, v in ranks.items()}, echecs, _metrics(ranks_filtre)
 
 
 def run_finetune(config=None) -> dict:
@@ -295,7 +325,22 @@ def run_finetune(config=None) -> dict:
     questions = _load_questions(QUESTIONS)
 
     avant = run_eval(QUESTIONS, config)["base"]  # reecrit results.json (bloc base)
-    paires = generer_paires(config, chunks)
+
+    # Base, meme langue, recherche limitee aux documents de la langue (avant de vider le cache)
+    base_filtre = _metrics(
+        [
+            _rank(
+                retrieve.search(q["question"], k=10, langue=config["langue_questions"]),
+                q,
+            )
+            for q in questions
+            if q["type"] == "meme_langue"
+        ]
+    )
+
+    # Seulement les paires dont le passage existe encore dans le decoupage actuel.
+    valides = {_cle(c["texte"].strip()) for c in chunks}
+    paires = [p for p in generer_paires(config, chunks) if p["cle"] in valides]
     if len(paires) < 50:
         raise SystemExit(f"Trop peu de paires ({len(paires)}) pour entrainer.")
 
@@ -317,7 +362,7 @@ def run_finetune(config=None) -> dict:
             )
         entrainer(config, paires, graine)
 
-    apres, echecs_ft = evaluer_ft(config, chunks, questions)
+    apres, echecs_ft, apres_filtre = evaluer_ft(config, chunks, questions)
 
     resultats = json.loads(RESULTS.read_text(encoding="utf-8"))
     resultats["finetune"] = apres
@@ -325,6 +370,11 @@ def run_finetune(config=None) -> dict:
     resultats["modele_finetune"] = {
         "nom": f"{model_name(config)} + fine-tuning ({len(paires)} paires)",
         "empreinte_sha256": _empreinte(MODEL_DIR),
+    }
+    resultats["meme_langue_filtre"] = {
+        "langue_documents": config["langue_questions"],
+        "base": base_filtre,
+        "finetune": apres_filtre,
     }
     RESULTS.write_text(
         json.dumps(resultats, ensure_ascii=False, indent=2), encoding="utf-8"
@@ -336,6 +386,11 @@ def run_finetune(config=None) -> dict:
             f"{groupe:12s} avant R@5={a['recall@5']:.2f} R@10={a['recall@10']:.2f} MRR={a['mrr']:.2f}"
             f"  |  apres R@5={b['recall@5']:.2f} R@10={b['recall@10']:.2f} MRR={b['mrr']:.2f}"
         )
+    print(
+        f"meme langue, docs {config['langue_questions']} seulement : "
+        f"base R@5={base_filtre['recall@5']:.2f} MRR={base_filtre['mrr']:.2f}"
+        f"  |  ft R@5={apres_filtre['recall@5']:.2f} MRR={apres_filtre['mrr']:.2f}"
+    )
     print("echecs avant :", resultats["echecs"], " apres :", echecs_ft)
     return resultats
 
